@@ -21,14 +21,6 @@ npm run check-types ||
     false;
 )
 
-
-npx --no-install commitlint --edit "$1" ||
-{
-    echo '❌❌❌ Commitlint check failed, please set a proper commit message.'
-    false;
-}
-
-
 # If everything passes... Now we can commit
 echo 'All checks passed...'
 
