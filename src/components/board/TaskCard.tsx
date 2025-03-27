@@ -1,14 +1,21 @@
+import { FC } from 'react'
 import { BsTextParagraph } from 'react-icons/bs'
+import EventIcon from '@mui/icons-material/Event'
 import { TbAlertSquareRounded, TbAlertSquareRoundedOff } from 'react-icons/tb'
+import { format } from 'date-fns'
 
-import Chip from '../mui/Chip'
-import Stack from '../mui/Stack'
-import Typography from '../mui/Typography'
-import Avatar, { AvatarGroup } from '../mui/Avatar'
 import { TaskType } from '../../pages/board/project'
 import Card, { ActionArea, Content } from '../mui/Card'
+import Avatar, { AvatarGroup } from '../mui/Avatar'
+import Typography from '../mui/Typography'
+import Chip from '../mui/Chip'
+import Stack from '../mui/Stack'
 
-const TaskCard = ({ task }: { task: TaskType }) => {
+export type TaskCardProps = {
+  task: TaskType
+}
+
+const TaskCard: FC<TaskCardProps> = ({ task }) => {
   const barIconsStyles = { marginLeft: '0.25rem', marginRight: '0.25rem' }
 
   return (
@@ -31,7 +38,7 @@ const TaskCard = ({ task }: { task: TaskType }) => {
               {task.description && <BsTextParagraph size={22} style={{ ...barIconsStyles }} />}
             </Stack>
             <AvatarGroup spacing="small">
-              {task.assingee.map((a, idx) => (
+              {task?.assingee?.map((a, idx) => (
                 <Avatar
                   key={idx}
                   alt={a.name}
@@ -52,6 +59,16 @@ const TaskCard = ({ task }: { task: TaskType }) => {
               />
             ))}
           </Stack>
+          {task.end_date && (
+            <Stack direction="row" flexWrap="wrap" alignItems="center" spacing={1} mt={1}>
+              <EventIcon sx={{ fontSize: 20 }} />
+              <Stack direction="row" flexWrap="wrap" alignItems="center">
+                <Typography fontSize={14}>{format(task.start_date, 'dd-MM-yyyy')}</Typography>
+                &nbsp;-&nbsp;
+                <Typography fontSize={14}>{format(task.end_date, 'dd-MM-yyyy')}</Typography>
+              </Stack>
+            </Stack>
+          )}
         </Content>
       </ActionArea>
     </Card>

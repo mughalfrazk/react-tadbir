@@ -1,10 +1,5 @@
 import { ReactNode } from 'react'
-import {
-  AppProvider as MuiAppProvider,
-  DashboardLayout,
-  PageContainer,
-  Navigation
-} from '@toolpad/core'
+import { AppProvider as MuiAppProvider, DashboardLayout, Navigation } from '@toolpad/core'
 import { CssBaseline, ThemeProvider } from '@mui/material'
 import DashboardIcon from '@mui/icons-material/Dashboard'
 import TimelineIcon from '@mui/icons-material/Timeline'
@@ -40,9 +35,9 @@ const AppProvider = ({ children }: { children: ReactNode }) => {
           branding={{ title: 'React Projects', logo: '', homeUrl: '/' }}
           hideNavigation
         >
-          <PageContainer title="" breadcrumbs={[]}>
-            {children}
-          </PageContainer>
+          {/* <PageContainer title="" breadcrumbs={[]} sx={{}}> */}
+          {children}
+          {/* </PageContainer> */}
         </DashboardLayout>
       </MuiAppProvider>
     </ThemeProvider>
