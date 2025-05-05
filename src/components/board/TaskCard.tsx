@@ -1,15 +1,12 @@
+import EventIcon from '@mui/icons-material/Event'
+import { format } from 'date-fns'
 import { FC } from 'react'
 import { BsTextParagraph } from 'react-icons/bs'
-import EventIcon from '@mui/icons-material/Event'
 import { TbAlertSquareRounded, TbAlertSquareRoundedOff } from 'react-icons/tb'
-import { format } from 'date-fns'
 
-import { TaskType } from '../../pages/board/project'
-import Card, { ActionArea, Content } from '../mui/Card'
-import Avatar, { AvatarGroup } from '../mui/Avatar'
-import Typography from '../mui/Typography'
-import Chip from '../mui/Chip'
-import Stack from '../mui/Stack'
+import { TaskType } from '@/pages/dashboard/board/project'
+
+import { ActionArea, Avatar, AvatarGroup, Card, Chip, Content, Stack, Typography } from '../mui'
 
 export type TaskCardProps = {
   task: TaskType

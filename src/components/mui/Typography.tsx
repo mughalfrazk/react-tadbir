@@ -1,7 +1,6 @@
 import { Typography as MuiTypography, TypographyProps } from '@mui/material'
-import { ReactNode } from 'react'
 
-const Typography = ({ children, ...otherProps }: { children: ReactNode } & TypographyProps) => {
+const Typography = ({ children, ...otherProps }: TypographyProps) => {
   return <MuiTypography {...otherProps}>{children}</MuiTypography>
 }
 

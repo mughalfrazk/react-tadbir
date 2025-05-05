@@ -1,45 +1,13 @@
-import { ReactNode } from 'react'
-import { AppProvider as MuiAppProvider, DashboardLayout, Navigation } from '@toolpad/core'
 import { CssBaseline, ThemeProvider } from '@mui/material'
-import DashboardIcon from '@mui/icons-material/Dashboard'
-import TimelineIcon from '@mui/icons-material/Timeline'
-import { useDemoRouter } from '@toolpad/core/internal'
+import { ReactNode } from 'react'
 
-import { projectsTheme } from '../projects-theme'
-
-const NAVIGATION: Navigation = [
-  {
-    kind: 'header',
-    title: 'Main Items'
-  },
-  {
-    segment: 'page',
-    title: 'Page',
-    icon: <DashboardIcon />
-  },
-  {
-    segment: 'page-2',
-    title: 'Page 2',
-    icon: <TimelineIcon />
-  }
-]
+import { tadbirTheme } from '../tadbir-theme'
 
 const AppProvider = ({ children }: { children: ReactNode }) => {
-  const router = useDemoRouter('/page')
-
   return (
-    <ThemeProvider theme={projectsTheme}>
+    <ThemeProvider theme={tadbirTheme}>
       <CssBaseline />
-      <MuiAppProvider navigation={NAVIGATION} router={router} theme={projectsTheme}>
-        <DashboardLayout
-          branding={{ title: 'React Projects', logo: '', homeUrl: '/' }}
-          hideNavigation
-        >
-          {/* <PageContainer title="" breadcrumbs={[]} sx={{}}> */}
-          {children}
-          {/* </PageContainer> */}
-        </DashboardLayout>
-      </MuiAppProvider>
+      {children}
     </ThemeProvider>
   )
 }

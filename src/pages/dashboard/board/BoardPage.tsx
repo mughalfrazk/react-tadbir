@@ -1,29 +1,15 @@
+import { DndContext, DragEndEvent, DragOverEvent, DragOverlay, closestCenter } from '@dnd-kit/core'
+import { arrayMove } from '@dnd-kit/sortable'
 import { useState } from 'react'
-import {
-  DndContext,
-  DragEndEvent,
-  DragOverEvent,
-  DragOverlay,
-  closestCenter,
-  useDroppable
-} from '@dnd-kit/core'
-import {
-  arrayMove,
-  SortableContext,
-  useSortable,
-  verticalListSortingStrategy
-} from '@dnd-kit/sortable'
 
-import Typography from '../../components/mui/Typography'
-import Divider from '../../components/mui/Divider'
-import Stack from '../../components/mui/Stack'
-import Card from '../../components/mui/Card'
-import { board, TaskType } from './project'
-import { lightDark } from '../../utils/functions'
-import { useTheme } from '@mui/material'
-import TaskCard from '../../components/board/TaskCard'
+import BoardHeader from '@/components/board/BoardHeader'
+import Column from '@/components/board/Column'
+import TaskCard from '@/components/board/TaskCard'
+import { Divider, Stack } from '@/components/mui'
 
-export default function KanbanBoard() {
+import { TaskType, board } from './project'
+
+const BoardPage = () => {
   const [columns, setColumns] = useState(board)
   const [dragTask, setDragTask] = useState<TaskType | null>(null)
   const [activeColumn, setActiveColumn] = useState<string | null>(null)
@@ -109,10 +95,7 @@ export default function KanbanBoard() {
       onDragEnd={onDragEnd}
     >
       <Stack direction="column" spacing={2}>
-        <Stack m={0} px={2} pt={2} pb={0}>
-          <Typography variant="h6">Ipro Fix</Typography>
-          <Typography variant="subtitle1">project.description</Typography>
-        </Stack>
+        <BoardHeader />
         <Divider />
         <DragOverlay
           dropAnimation={{
@@ -126,7 +109,7 @@ export default function KanbanBoard() {
             </div>
           ) : null}
         </DragOverlay>
-        <Stack direction="row" spacing={2} px={3} sx={{ overflowY: 'auto' }}>
+        <Stack direction="row" spacing={2} px={3} pb={2} sx={{ overflowY: 'auto' }}>
           {columns.map((column) => (
             <Column
               key={column.id}
@@ -143,70 +126,4 @@ export default function KanbanBoard() {
   )
 }
 
-function Column({
-  id,
-  title,
-  tasks,
-  dragTask,
-  activeColumn
-}: {
-  id: string
-  title: string
-  tasks: TaskType[]
-  dragTask: TaskType | null
-  activeColumn: string | null
-}) {
-  const theme = useTheme()
-  const { setNodeRef } = useDroppable({ id })
-
-  return (
-    <div ref={setNodeRef} className="rounded">
-      <h3 className="font-bold mb-2">
-        {id}: {title}
-      </h3>
-      <Card
-        sx={lightDark(
-          {
-            padding: 1,
-            width: 300,
-            minWidth: 300,
-            overflowY: 'auto',
-            overflowX: 'hidden',
-            height: 'calc(100vh - 220px)',
-            backgroundColor: theme.palette.grey[50],
-            border: activeColumn === id ? 1 : 1,
-            borderColor: activeColumn === id ? theme.palette.primary.main : theme.palette.grey[50]
-          },
-          {
-            backgroundColor: theme.palette.grey[800],
-            borderColor: activeColumn === id ? theme.palette.primary.main : theme.palette.grey[800]
-          }
-        )}
-      >
-        <SortableContext items={tasks} strategy={verticalListSortingStrategy}>
-          {tasks.map((task) => (
-            <Task key={task.id} id={task.id} task={task} dragTask={dragTask} />
-          ))}
-        </SortableContext>
-      </Card>
-    </div>
-  )
-}
-
-function Task({ id, task, dragTask }: { id: string; task: TaskType; dragTask: TaskType | null }) {
-  const { attributes, listeners, setNodeRef, transform } = useSortable({ id })
-
-  return (
-    <div
-      ref={setNodeRef}
-      {...listeners}
-      {...attributes}
-      className={`mb-2 cursor-grab`}
-      style={{ transform: transform ? `translate(${transform.x}px, ${transform.y}px)` : undefined }}
-    >
-      <div className={`${dragTask?.id === id ? 'invisible' : 'visible'}`}>
-        <TaskCard task={task} />
-      </div>
-    </div>
-  )
-}
+export default BoardPage

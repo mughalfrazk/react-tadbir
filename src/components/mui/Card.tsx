@@ -1,12 +1,12 @@
 import {
-  Card as MuiCard,
   CardActionArea,
   CardActionAreaProps,
   CardContent,
   CardContentProps,
   CardMedia,
   CardMediaProps,
-  CardProps
+  CardProps,
+  Card as MuiCard
 } from '@mui/material'
 
 export const ActionArea = ({ children, ...otherProps }: CardActionAreaProps) => {

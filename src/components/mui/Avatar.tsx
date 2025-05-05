@@ -1,8 +1,8 @@
 import {
-  Avatar as MuiAvatar,
-  AvatarGroup as Group,
   AvatarGroupProps,
   AvatarProps,
+  AvatarGroup as Group,
+  Avatar as MuiAvatar,
   Tooltip
 } from '@mui/material'
 

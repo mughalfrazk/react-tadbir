@@ -1,7 +1,6 @@
-import { ReactNode } from 'react'
-import { Box as MuiBox, BoxProps } from '@mui/material'
+import { BoxProps, Box as MuiBox } from '@mui/material'
 
-const Box = ({ children, ...otherProps }: { children: ReactNode } & BoxProps) => {
+const Box = ({ children, ...otherProps }: BoxProps) => {
   return <MuiBox {...otherProps}>{children}</MuiBox>
 }
 

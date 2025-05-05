@@ -1,4 +1,4 @@
-import { Divider as MuiDivider, DividerProps } from '@mui/material'
+import { DividerProps, Divider as MuiDivider } from '@mui/material'
 
 const Divider = ({ ...otherProps }: DividerProps) => {
   return <MuiDivider {...otherProps} />

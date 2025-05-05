@@ -1,7 +1,7 @@
-import { Chip as MuiChip, ChipProps } from '@mui/material'
+import { ChipProps, Chip as MuiChip } from '@mui/material'
 
-const Chip = ({ ...otherProps }: ChipProps) => {
-  return <MuiChip {...otherProps} size="small" sx={{ borderRadius: '0.2rem', ...otherProps.sx }} />
+const Chip = ({ children, ...otherProps }: ChipProps) => {
+  return <MuiChip {...otherProps}>{children}</MuiChip>
 }
 
 export default Chip

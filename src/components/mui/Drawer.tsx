@@ -1,7 +1,6 @@
-import { ReactNode } from 'react'
-import { Drawer as MuiDrawer, DrawerProps } from '@mui/material'
+import { DrawerProps, Drawer as MuiDrawer } from '@mui/material'
 
-const Drawer = ({ children, ...otherProps }: { children: ReactNode } & DrawerProps) => {
+const Drawer = ({ children, ...otherProps }: DrawerProps) => {
   return <MuiDrawer {...otherProps}>{children}</MuiDrawer>
 }
 

@@ -1,33 +1,31 @@
-import { FC } from 'react'
-import { CSS } from '@dnd-kit/utilities'
 import { useSortable } from '@dnd-kit/sortable'
 
-import { TaskType } from '../../pages/board/project'
+import { TaskType } from '@/pages/dashboard/board/project'
+
 import TaskCard from './TaskCard'
 
-export type SortableItemProps = {
+const SortableItem = ({
+  id,
+  task,
+  dragTask
+}: {
   id: string
   task: TaskType
-  activeTask: TaskType | null
-}
-
-const SortableItem: FC<SortableItemProps> = ({ id, task, activeTask }) => {
-  const { attributes, listeners, setNodeRef, transform } = useSortable({
-    id: id
-  })
-
-  const style = {
-    margin: '10px',
-    transform: CSS.Transform.toString(transform),
-    zIndex: 1000,
-    opacity: activeTask?.id === id ? 0.5 : 1
-  }
-
-  // if (activeTask?.id === id) return <h1>Picked Up</h1>
+  dragTask: TaskType | null
+}) => {
+  const { attributes, listeners, setNodeRef, transform } = useSortable({ id })
 
   return (
-    <div ref={setNodeRef} {...attributes} {...listeners} style={style}>
-      <TaskCard task={task} />
+    <div
+      ref={setNodeRef}
+      {...listeners}
+      {...attributes}
+      className={`mb-2 cursor-grab`}
+      style={{ transform: transform ? `translate(${transform.x}px, ${transform.y}px)` : undefined }}
+    >
+      <div className={`${dragTask?.id === id ? 'invisible' : 'visible'}`}>
+        <TaskCard task={task} />
+      </div>
     </div>
   )
 }

@@ -1,54 +1,53 @@
-import { FC } from 'react'
-import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable'
 import { useDroppable } from '@dnd-kit/core'
+import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable'
 import { useTheme } from '@mui/material'
 
-import { TaskType } from '../../pages/board/project'
-import { lightDark } from '../../utils/functions'
-import Typography from '../mui/Typography'
-import SortableItem from './SortableItem'
-import Card from '../mui/Card'
-import Box from '../mui/Box'
+import { Card } from '@/components/mui'
+import { TaskType } from '@/pages/dashboard/board/project'
 
-export type ColumnProps = {
+import SortableItem from './SortableItem'
+
+const Column = ({
+  id,
+  title,
+  tasks,
+  dragTask,
+  activeColumn
+}: {
   id: string
   title: string
   tasks: TaskType[]
-  activeTask: TaskType | null
+  dragTask: TaskType | null
   activeColumn: string | null
-}
-
-const Column: FC<ColumnProps> = ({ id, title, tasks, activeColumn, activeTask }) => {
+}) => {
   const theme = useTheme()
-  const { setNodeRef } = useDroppable({ id: id })
+  const { setNodeRef } = useDroppable({ id })
 
   return (
-    <Box ref={setNodeRef}>
-      <SortableContext id={id} items={tasks} strategy={verticalListSortingStrategy}>
-        <Typography sx={{ fontWeight: 'bold', mb: 1 }}>{title}</Typography>
-        <Card
-          sx={lightDark(
-            {
-              width: 300,
-              minWidth: 300,
-              overflowY: 'auto',
-              overflowX: 'hidden',
-              height: 'calc(100vh - 220px)',
-              backgroundColor: theme.palette.grey[50]
-            },
-            {
-              backgroundColor: theme.palette.grey[900],
-              border: activeColumn === id ? 1 : 0,
-              borderColor: theme.palette.primary.main
-            }
-          )}
-        >
+    <div ref={setNodeRef} className="rounded">
+      <h3 className="font-bold mb-2">
+        {id}: {title}
+      </h3>
+      <Card
+        sx={{
+          padding: 1,
+          width: 300,
+          minWidth: 300,
+          overflowY: 'auto',
+          overflowX: 'hidden',
+          height: 'calc(100vh - 220px)',
+          backgroundColor: theme.palette.grey[900],
+          border: activeColumn === id ? 1 : 1,
+          borderColor: activeColumn === id ? theme.palette.primary.main : theme.palette.grey[900]
+        }}
+      >
+        <SortableContext items={tasks} strategy={verticalListSortingStrategy}>
           {tasks.map((task) => (
-            <SortableItem key={task.id} id={task.id} task={task} activeTask={activeTask} />
+            <SortableItem key={task.id} id={task.id} task={task} dragTask={dragTask} />
           ))}
-        </Card>
-      </SortableContext>
-    </Box>
+        </SortableContext>
+      </Card>
+    </div>
   )
 }
 

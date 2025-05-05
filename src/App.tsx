@@ -1,18 +1,15 @@
-import '@fontsource/roboto/300.css'
-import '@fontsource/roboto/400.css'
-import '@fontsource/roboto/500.css'
-import '@fontsource/roboto/700.css'
+import { Outlet } from 'react-router'
 
-import AppProvider from './providers/app-provider'
-import BoardPage from './pages/board'
-import './App.css'
+import AppProvider from '@/providers/app-provider'
 
-function App() {
-  return (
-    <AppProvider>
-      <BoardPage />
-    </AppProvider>
-  )
-}
+import AuthProvider from './providers/auth-provider'
+
+const App = () => (
+  <AppProvider>
+    <AuthProvider>
+      <Outlet />
+    </AuthProvider>
+  </AppProvider>
+)
 
 export default App
