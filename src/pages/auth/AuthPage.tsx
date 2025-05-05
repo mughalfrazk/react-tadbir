@@ -6,17 +6,20 @@ import { useNavigate } from 'react-router'
 import AuthBg from '@/assets/auth-bg.png'
 import AuthVector from '@/assets/auth.png'
 import { Box, Button, Container, Grid, Stack, Typography } from '@/components/mui'
+import { useAuth } from '@/context/auth-context'
 import { useGlobalState } from '@/context/global-state-context'
 import { signInWithGooglePopup } from '@/lib/firebase/auth.service'
 
 const AuthPage = () => {
   const navigate = useNavigate()
+  const { loginHandler } = useAuth()
   const { showToast } = useGlobalState()
 
   const googleSignIn = async () => {
     try {
-      await signInWithGooglePopup()
-      navigate('/dashboard/project')
+      const user = await signInWithGooglePopup()
+      loginHandler(user)
+      navigate('/dashboard')
     } catch (error) {
       const e = error as FirebaseError
       showToast(e.message, 'error')

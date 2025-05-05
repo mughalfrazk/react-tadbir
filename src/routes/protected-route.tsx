@@ -5,8 +5,7 @@ import { useAuth } from '@/context/auth-context'
 const ProtectedRoute = () => {
   const auth = useAuth()
 
-  if (!auth.accessToken) return <Navigate to="/auth" />
-
+  if (!auth.session) return <Navigate to="/auth" />
   return <Outlet />
 }
 

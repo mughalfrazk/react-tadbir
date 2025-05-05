@@ -16,7 +16,7 @@ const Header = ({ handleDrawerOpen, open }: { handleDrawerOpen: () => void; open
     <Container>
       <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
         <Stack direction="row" alignItems="center">
-          {auth.accessToken && (
+          {auth.session && (
             <IconButton
               color="inherit"
               aria-label="open drawer"
@@ -36,7 +36,7 @@ const Header = ({ handleDrawerOpen, open }: { handleDrawerOpen: () => void; open
         </Stack>
         {auth.loading ? (
           <CircularProgress size="30px" />
-        ) : auth.accessToken ? (
+        ) : auth.session ? (
           <AvatarMenu />
         ) : (
           <Button component="a" href="/auth" variant="outlined" startIcon={<TbLogin2 />}>

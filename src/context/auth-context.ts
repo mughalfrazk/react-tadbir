@@ -1,22 +1,25 @@
+import { User } from 'firebase/auth'
 import { createContext, useContext } from 'react'
 
-export type AuthContextType = {
+export type Session = {
   displayName: string
   email: string
   accessToken: string
   photoUrl: string
   uid: string
+}
+
+export type AuthContextType = {
+  session: Session | null
   loading: boolean
+  loginHandler: (s: User) => void
   logoutHandler: () => void
 }
 
 const AuthContext = createContext<AuthContextType>({
-  displayName: '',
-  email: '',
-  accessToken: '',
-  photoUrl: '',
-  uid: '',
+  session: null,
   loading: false,
+  loginHandler: () => {},
   logoutHandler: () => {}
 })
 

@@ -2,6 +2,7 @@ import DashboardIcon from '@mui/icons-material/Dashboard'
 import { useTheme } from '@mui/material'
 import { useState } from 'react'
 import { TbLogout2 } from 'react-icons/tb'
+import { useNavigate } from 'react-router'
 
 import { useAuth } from '@/context/auth-context'
 
@@ -9,13 +10,18 @@ import { Avatar, ItemIcon, Menu, MenuItem } from '../mui'
 
 const AvatarMenu = () => {
   const theme = useTheme()
-  const { logoutHandler } = useAuth()
+  const navigate = useNavigate()
+  const { session, logoutHandler } = useAuth()
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
   const open = Boolean(anchorEl)
 
   const handleClose = () => {
     setAnchorEl(null)
+  }
+
+  const goToDashboard = () => {
+    navigate('/dashboard')
   }
 
   return (
@@ -26,7 +32,8 @@ const AvatarMenu = () => {
         aria-haspopup="true"
         aria-expanded={open ? 'true' : undefined}
         onClick={(e) => setAnchorEl(e.currentTarget)}
-        sx={{ width: 36, height: 36 }}
+        sx={{ width: 32, height: 32 }}
+        src={session?.photoUrl}
       />
       <Menu
         id="avatar-menu"
@@ -37,13 +44,12 @@ const AvatarMenu = () => {
           'aria-labelledby': 'basic-button'
         }}
       >
-        <MenuItem onClick={handleClose}>
+        <MenuItem onClick={goToDashboard}>
           <ItemIcon>
             <DashboardIcon sx={{ fontSize: 20 }} />
           </ItemIcon>
           Dashboard
         </MenuItem>
-        <MenuItem onClick={handleClose}>My account</MenuItem>
         <MenuItem
           sx={(theme) => ({ color: theme.palette.error.main })}
           onClick={() => {

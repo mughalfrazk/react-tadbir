@@ -11,7 +11,6 @@ const signInWithGooglePopup = async () => {
 
     // const token = credential?.accessToken
     const user = result.user
-    console.log('Auth service: ', user)
     return user
   } catch (e) {
     const error = e as FirebaseError
