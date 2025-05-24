@@ -1,13 +1,13 @@
 import AddRoundedIcon from '@mui/icons-material/AddRounded'
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded'
 import { useTheme } from '@mui/material'
-import { useState } from 'react'
-// import { useParams } from 'react-router'
+import { useEffect, useState } from 'react'
+import { useParams } from 'react-router'
 
 import { Box, Button, Card, Stack, Typography } from '@/components/mui'
 import { ColumnListModel } from '@/lib/models/column.model'
 import { TaskModel } from '@/lib/models/task.model'
-// import { useGetProjectDetailQuery } from '@/lib/queries/project.query'
+import { useGetProjectDetailQuery } from '@/lib/queries/project.query'
 
 import AddColumnForm from './AddColumnForm'
 import Column from './Column'
@@ -16,8 +16,8 @@ import { board } from './project'
 
 const ProjectBoard = () => {
   const theme = useTheme()
-  // const { project_id } = useParams()
-  // const { data } = useGetProjectDetailQuery(project_id as string)
+  const { project_id } = useParams()
+  const { data } = useGetProjectDetailQuery(project_id as string)
 
   const [columns, setColumns] = useState<ColumnListModel>(board)
   const [dragTask, setDragTask] = useState<TaskModel | null>(null)
@@ -25,11 +25,11 @@ const ProjectBoard = () => {
 
   const [addTaskForm, setAddTaskForm] = useState<string>('')
 
-  // useEffect(() => {
-  //   if (data) {
-  //     setColumns(data.projects.columns)
-  //   }
-  // }, [data])
+  useEffect(() => {
+    if (data) {
+      setColumns(data.projects.columns)
+    }
+  }, [data])
 
   return (
     <DndContextWrapper
