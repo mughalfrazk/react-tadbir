@@ -2,6 +2,7 @@ import MenuIcon from '@mui/icons-material/Menu'
 import IconButton from '@mui/material/IconButton'
 import Toolbar from '@mui/material/Toolbar'
 import Typography from '@mui/material/Typography'
+import { useEffect } from 'react'
 import { TbLogin2 } from 'react-icons/tb'
 
 import { useAuth } from '@/context/auth-context'
@@ -20,6 +21,10 @@ const Header = ({ handleDrawerOpen, open }: { handleDrawerOpen: () => void; open
   //     setMode('light')
   //   }
   // }
+
+  useEffect(() => {
+    console.log('auth: ', auth)
+  }, [auth])
 
   return (
     <Container>

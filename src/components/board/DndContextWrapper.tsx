@@ -3,9 +3,9 @@ import { arrayMove } from '@dnd-kit/sortable'
 import { Dispatch, ReactNode, SetStateAction } from 'react'
 
 import { Stack } from '@/components/mui'
+import { ColumnListModel } from '@/lib/models/column.model'
 import { TaskModel } from '@/lib/models/task.model'
 
-import { board } from './project'
 import TaskCard from './TaskCard'
 
 const DndContextWrapper = ({
@@ -19,10 +19,10 @@ const DndContextWrapper = ({
 }: {
   children: ReactNode
   height?: string | number
-  columns: typeof board
+  columns: ColumnListModel
   dragTask: TaskModel | null
   setDragTask: Dispatch<SetStateAction<TaskModel | null>>
-  setColumns: Dispatch<SetStateAction<typeof board>>
+  setColumns: Dispatch<SetStateAction<ColumnListModel>>
   setActiveColumn: Dispatch<SetStateAction<string | null>>
 }) => {
   const onDragStart = (event: DragOverEvent) => {

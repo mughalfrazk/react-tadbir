@@ -16,7 +16,7 @@ export const ProjectSchema = z.object({
 
 export const ProjectListSchema = z.array(ProjectSchema)
 
-export const ProjectTableItemSchema = z.object({
+export const ProjectDetailSchema = z.object({
   id: z.number(),
   projects: z.object({
     id: z.number(),
@@ -31,11 +31,26 @@ export const ProjectTableItemSchema = z.object({
   })
 })
 
+export const ProjectTableItemSchema = z.object({
+  id: z.number(),
+  projects: z.object({
+    id: z.number(),
+    name: z.string(),
+    description: z.string()
+  }),
+  project_roles: z.object({
+    id: z.number(),
+    name: z.string(),
+    description: z.string()
+  })
+})
+
 export const ProjectTableListSchema = z.array(ProjectTableItemSchema)
 
 export type CreateProjectPayloadModel = z.infer<typeof CreateProjectPayloadSchema>
 export type ProjectModel = z.infer<typeof ProjectSchema>
 export type ProjectListModel = z.infer<typeof ProjectListSchema>
 
+export type ProjectDetailModel = z.infer<typeof ProjectDetailSchema>
 export type ProjectTableItemModel = z.infer<typeof ProjectTableItemSchema>
 export type ProjectTableListModel = z.infer<typeof ProjectTableListSchema>

@@ -2,7 +2,7 @@ import { parseFactory } from '@/utils/parse-factory'
 
 import {
   CreateProjectPayloadModel,
-  ProjectTableItemSchema,
+  ProjectDetailSchema,
   ProjectTableListSchema
 } from '../models/project.model'
 
@@ -12,10 +12,7 @@ const ProjectTableListDataParser = parseFactory(
   ProjectTableListSchema,
   'ProjectTableListDataParser'
 )
-const ProjectTableItemDataParser = parseFactory(
-  ProjectTableItemSchema,
-  'ProjectTableItemDataParser'
-)
+const ProjectDetailDataParser = parseFactory(ProjectDetailSchema, 'ProjectDetailDataParser')
 
 const createProjectApi = async (payload: CreateProjectPayloadModel) => {
   const req = {
@@ -66,7 +63,7 @@ const getProjectDetailApi = async (project_id: string) => {
     )
     .eq('project_id', project_id)
 
-  return ProjectTableItemDataParser(data?.[0])
+  return ProjectDetailDataParser(data?.[0])
 }
 
 export { createProjectApi, getAllUserProjectsApi, getProjectDetailApi }
