@@ -12,6 +12,15 @@ import CircularProgress from '../mui/CircularProgress'
 
 const Header = ({ handleDrawerOpen, open }: { handleDrawerOpen: () => void; open: boolean }) => {
   const auth = useAuth()
+
+  // const changeColorSchema = () => {
+  //   if (mode === 'light') {
+  //     setMode('dark')
+  //   } else {
+  //     setMode('light')
+  //   }
+  // }
+
   return (
     <Container>
       <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
@@ -34,15 +43,24 @@ const Header = ({ handleDrawerOpen, open }: { handleDrawerOpen: () => void; open
           )}
           <Typography variant="h4">Tadbir</Typography>
         </Stack>
-        {auth.loading ? (
-          <CircularProgress size="30px" />
-        ) : auth.session ? (
-          <AvatarMenu />
-        ) : (
-          <Button component="a" href="/auth" variant="outlined" startIcon={<TbLogin2 />}>
-            Login
-          </Button>
-        )}
+        <Stack direction="row" alignItems="center" gap={1}>
+          {/* <Button isIconOnly onClick={changeColorSchema} sx={{ m: 0 }}>
+            {mode === 'light' ? (
+              <PiSunFill size={20} />
+            ) : (
+              <TbMoonFilled size={20} color="primary" />
+            )}
+          </Button> */}
+          {auth.loading ? (
+            <CircularProgress size="30px" />
+          ) : auth.session ? (
+            <AvatarMenu />
+          ) : (
+            <Button component="a" href="/auth" variant="outlined" startIcon={<TbLogin2 />}>
+              Login
+            </Button>
+          )}
+        </Stack>
       </Toolbar>
     </Container>
   )

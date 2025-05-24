@@ -36,32 +36,32 @@ export const tadbirTheme = createTheme({
     fontSize: 14,
     h1: {
       fontSize: '2rem',
-      fontWeight: 'bolder',
+      fontWeight: 900,
       lineHeight: '2.2rem'
     },
     h2: {
       fontSize: '1.8rem',
-      fontWeight: 'bolder',
+      fontWeight: 900,
       lineHeight: '2rem'
     },
     h3: {
       fontSize: '1.5rem',
-      fontWeight: 'bolder',
+      fontWeight: 900,
       lineHeight: '1.5rem'
     },
     h4: {
       fontSize: '1.25rem',
-      fontWeight: 500,
+      fontWeight: 700,
       lineHeight: '1.25rem'
     },
     h5: {
       fontSize: '1rem',
-      fontWeight: 500,
+      fontWeight: 700,
       lineHeight: '1rem'
     },
     h6: {
       fontSize: '0.9rem',
-      fontWeight: 500,
+      fontWeight: 700,
       lineHeight: '0.8rem'
     },
     subtitle1: {
@@ -159,6 +159,9 @@ export const tadbirTheme = createTheme({
       styleOverrides: {
         root: {
           // borderRadius: '0.7rem',
+          textTransform: 'none',
+          paddingLeft: '15px !important',
+          paddingRight: '15px !important'
         }
       }
     }
@@ -174,44 +177,3 @@ export const tadbirTheme = createTheme({
     }
   }
 })
-
-// @font-face {
-//   font-family: 'Sansation';
-//   font-style: normal;
-//   font-weight: 800;
-//   src: local('Sansation'), local('Sansation-Bold'), url(${SansationBold}) format('woff2');
-//   unicodeRange: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF;
-// }
-// @font-face {
-//   font-family: 'Sansation';
-//   font-weight: 500;
-//   src: local('Sansation'), local('Sansation-Regular'), url(${SansationRegular}) format('woff2');
-//   unicodeRange: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF;
-// }
-// @font-face {
-//   font-family: 'Sansation';
-//   font-weight: 200;
-//   src: local('Sansation'), local('Sansation-Light'), url(${SansationLight}) format('woff2');
-//   unicodeRange: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF;
-// }
-// @font-face {
-//   font-family: 'Sansation';
-//   font-style: italic;
-//   font-weight: 200;
-//   src: local('Sansation'), local('Sansation-LightItalic'), url(${SansationLightItalic}) format('woff2');
-//   unicodeRange: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF;
-// }
-// @font-face {
-//   font-family: 'Sansation';
-//   font-style: italic;
-//   font-weight: 400;
-//   src: local('Sansation'), local('Sansation-Italic'), url(${SansationItalic}) format('woff2');
-//   unicodeRange: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF;
-// }
-// @font-face {
-//   font-family: 'Sansation';
-//   font-style: italic;
-//   font-weight: bold;
-//   src: local('Sansation'), local('Sansation-BoldItalic'), url(${SansationBoldItalic}) format('woff2');
-//   unicodeRange: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF;
-// }

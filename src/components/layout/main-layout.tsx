@@ -15,7 +15,9 @@ import ListItemIcon from '@mui/material/ListItemIcon'
 import ListItemText from '@mui/material/ListItemText'
 import { styled, useTheme } from '@mui/material/styles'
 import { useState } from 'react'
-import { Outlet } from 'react-router'
+import { Outlet, useLocation } from 'react-router'
+
+import useColorMode from '@/hooks/color-mode'
 
 import Header from './Header'
 
@@ -82,6 +84,8 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 
 const MainLayout = () => {
   const theme = useTheme()
+  const location = useLocation()
+  const { mode } = useColorMode()
   const [open, setOpen] = useState(false)
 
   const handleDrawerOpen = () => {
@@ -97,7 +101,14 @@ const MainLayout = () => {
       <CssBaseline />
       <AppBar
         position="fixed"
-        sx={{ boxShadow: 'none', backgroundImage: 'none', backgroundColor: 'transparent' }}
+        sx={{
+          boxShadow: 'none',
+          backgroundImage: location.pathname === '/' ? 'none' : '',
+          backgroundColor:
+            location.pathname === '/' ? 'transparent' : mode === 'dark' ? 'black' : 'white',
+          borderBottom: location.pathname === '/' ? 0 : 1,
+          borderColor: 'divider'
+        }}
         open={open}
       >
         <Header handleDrawerOpen={handleDrawerOpen} open={open} />
@@ -133,7 +144,20 @@ const MainLayout = () => {
         </List>
         <Divider />
       </Drawer>
-      <Main open={open} sx={{ p: 0 }}>
+      <Main
+        open={open}
+        sx={{
+          position: 'relative',
+          minHeight: '100vh',
+          backgroundColor:
+            location.pathname === '/' ? theme.palette.common.black : theme.palette.action.hover
+        }}
+      >
+        <div
+          className="absolute -z-10 inset-0 h-full w-full 
+            bg-[radial-gradient(circle,#ffffff1f_1px,#000000de_1px)] 
+            bg-[size:15px_15px]"
+        />
         <DrawerHeader />
         <Outlet />
       </Main>

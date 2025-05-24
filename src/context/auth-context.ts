@@ -1,4 +1,3 @@
-import { User } from 'firebase/auth'
 import { createContext, useContext } from 'react'
 
 export type Session = {
@@ -12,7 +11,7 @@ export type Session = {
 export type AuthContextType = {
   session: Session | null
   loading: boolean
-  loginHandler: (s: User) => void
+  loginHandler: (s: Session) => void
   logoutHandler: () => void
 }
 

@@ -1,25 +1,20 @@
 import { red } from '@mui/material/colors'
 import { FirebaseError } from 'firebase/app'
 import { FaGoogle } from 'react-icons/fa'
-import { useNavigate } from 'react-router'
 
 import AuthBg from '@/assets/auth-bg.png'
 import AuthVector from '@/assets/auth.png'
 import { Box, Button, Container, Grid, Stack, Typography } from '@/components/mui'
-import { useAuth } from '@/context/auth-context'
 import { useGlobalState } from '@/context/global-state-context'
-import { signInWithGooglePopup } from '@/lib/firebase/auth.service'
+import { signInWithGooglePopup } from '@/lib/supabase/auth.service'
 
 const AuthPage = () => {
-  const navigate = useNavigate()
-  const { loginHandler } = useAuth()
   const { showToast } = useGlobalState()
 
   const googleSignIn = async () => {
     try {
-      const user = await signInWithGooglePopup()
-      loginHandler(user)
-      navigate('/dashboard')
+      const result = await signInWithGooglePopup()
+      console.log(result)
     } catch (error) {
       const e = error as FirebaseError
       showToast(e.message, 'error')

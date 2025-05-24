@@ -1,13 +1,14 @@
 import { createBrowserRouter } from 'react-router'
 
+import MainLayout from '@/components/layout/main-layout'
 import AuthPage from '@/pages/auth'
 import DashboardPage from '@/pages/dashboard/DashboardPage'
+import CreateProjectPage from '@/pages/dashboard/project/create'
+import ProjectDetailPage from '@/pages/dashboard/project/detail'
+import HomePage from '@/pages/home'
 
-import App from '../App'
 import ProtectedRoute from './protected-route'
-import MainLayout from '../components/layout/main-layout'
-import BoardPage from '../pages/dashboard/board'
-import HomePage from '../pages/home'
+import App from '../App'
 
 const router = createBrowserRouter([
   {
@@ -31,7 +32,16 @@ const router = createBrowserRouter([
               },
               {
                 path: 'project',
-                Component: BoardPage
+                children: [
+                  {
+                    path: 'create',
+                    Component: CreateProjectPage
+                  },
+                  {
+                    path: ':project_id',
+                    Component: ProjectDetailPage
+                  }
+                ]
               }
             ]
           }

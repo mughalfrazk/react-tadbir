@@ -6,7 +6,7 @@ type TextFieldPropsType = {
   fieldTouch?: boolean
 } & TextFieldProps
 
-const TextField = ({ fieldError, size = 'medium', ...otherProps }: TextFieldPropsType) => {
+const TextField = ({ fieldError, size = 'small', ...otherProps }: TextFieldPropsType) => {
   return (
     <MuiTextField
       fullWidth

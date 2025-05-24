@@ -13,7 +13,7 @@ const AvatarMenu = () => {
   const navigate = useNavigate()
   const { session, logoutHandler } = useAuth()
 
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
+  const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null)
   const open = Boolean(anchorEl)
 
   const handleClose = () => {

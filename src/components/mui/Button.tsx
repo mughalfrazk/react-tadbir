@@ -10,7 +10,7 @@ const Button = ({
   isIconOnly,
   ...otherProps
 }: { tooltip?: string; border?: boolean; isIconOnly?: boolean } & ButtonProps) => {
-  const py = otherProps.size === 'small' ? { py: 0.8 } : {}
+  const py = otherProps.size === 'small' ? { py: 0.5 } : {}
   const style = { ...sx }
   if (isIconOnly) {
     const borderStyles = border ? { border: 1, borderColor: 'divider' } : {}
@@ -23,7 +23,7 @@ const Button = ({
   }
 
   const Button = (
-    <MuiButton sx={{ mt: 1, ...style, ...sx, ...py }} {...otherProps}>
+    <MuiButton sx={{ ...style, ...sx, ...py }} {...otherProps}>
       {children}
     </MuiButton>
   )
