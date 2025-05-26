@@ -1,6 +1,6 @@
 import { useMutation } from '@tanstack/react-query'
 
-import { CreateTaskPayloadModel } from '../models/task.model'
+import { CreateTaskPayloadModel, TaskModel } from '../models/task.model'
 import { createTaskApi } from '../services/task.service'
 
 // const useGetColumnListQuery = ({ project_id }: { project_id: string }) => {
@@ -11,11 +11,13 @@ import { createTaskApi } from '../services/task.service'
 //   })
 // }
 
-const useCreateTaskMutate = ({ onSuccess }: { onSuccess: () => void }) => {
+const useCreateTaskMutation = ({ onSuccess }: { onSuccess: (task: TaskModel) => void }) => {
   return useMutation({
     mutationFn: (payload: CreateTaskPayloadModel) => createTaskApi(payload),
-    onSuccess
+    onSuccess: (task) => {
+      onSuccess(task)
+    }
   })
 }
 
-export { useCreateTaskMutate }
+export { useCreateTaskMutation }

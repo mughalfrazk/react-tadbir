@@ -1,30 +1,35 @@
-import { DndContext, DragEndEvent, DragOverEvent, DragOverlay, closestCenter } from '@dnd-kit/core'
+import {
+  DndContext,
+  DragEndEvent,
+  DragOverEvent,
+  DragOverlay,
+  PointerSensor,
+  closestCenter,
+  useSensor,
+  useSensors
+} from '@dnd-kit/core'
 import { arrayMove } from '@dnd-kit/sortable'
-import { Dispatch, ReactNode, SetStateAction } from 'react'
+import { ReactNode } from 'react'
 
 import { Stack } from '@/components/mui'
-import { ColumnListModel } from '@/lib/models/column.model'
-import { TaskModel } from '@/lib/models/task.model'
+import { useBoard } from '@/context/board-context'
 
 import TaskCard from './TaskCard'
 
 const DndContextWrapper = ({
   children,
-  height,
-  columns,
-  dragTask,
-  setDragTask,
-  setColumns,
-  setActiveColumn
+  height
 }: {
   children: ReactNode
   height?: string | number
-  columns: ColumnListModel
-  dragTask: TaskModel | null
-  setDragTask: Dispatch<SetStateAction<TaskModel | null>>
-  setColumns: Dispatch<SetStateAction<ColumnListModel>>
-  setActiveColumn: Dispatch<SetStateAction<string | null>>
 }) => {
+  const { columns, setColumns, dragTask, setDragTask, setActiveColumn } = useBoard()
+
+  const sensors = useSensors(
+    useSensor(PointerSensor, {
+      activationConstraint: { delay: 100, tolerance: 2 }
+    })
+  )
   const onDragStart = (event: DragOverEvent) => {
     const { active } = event
     const sourceColumn = columns.find((col) => col.tasks.some((task) => task.id === active.id))
@@ -100,6 +105,7 @@ const DndContextWrapper = ({
 
   return (
     <DndContext
+      sensors={sensors}
       collisionDetection={closestCenter}
       onDragStart={onDragStart}
       onDragOver={onDragOver}

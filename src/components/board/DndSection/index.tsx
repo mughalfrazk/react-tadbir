@@ -5,40 +5,29 @@ import { useEffect, useState } from 'react'
 import { useParams } from 'react-router'
 
 import { Box, Button, Card, Stack, Typography } from '@/components/mui'
-import { ColumnListModel } from '@/lib/models/column.model'
-import { TaskModel } from '@/lib/models/task.model'
+import { useBoard } from '@/context/board-context'
 import { useGetProjectDetailQuery } from '@/lib/queries/project.query'
 
 import AddColumnForm from './AddColumnForm'
 import Column from './Column'
 import DndContextWrapper from './DndContextWrapper'
-import { board } from './project'
 
 const ProjectBoard = () => {
   const theme = useTheme()
   const { project_id } = useParams()
-  const { data } = useGetProjectDetailQuery(project_id as string)
-
-  const [columns, setColumns] = useState<ColumnListModel>(board)
-  const [dragTask, setDragTask] = useState<TaskModel | null>(null)
-  const [activeColumn, setActiveColumn] = useState<string | null>(null)
+  const { columns, setColumns, activeColumn } = useBoard()
+  const { projectDetail } = useGetProjectDetailQuery(project_id as string)
 
   const [addTaskForm, setAddTaskForm] = useState<string>('')
 
   useEffect(() => {
-    if (data) {
-      setColumns(data.projects.columns)
+    if (projectDetail) {
+      setColumns(projectDetail.projects.columns)
     }
-  }, [data])
+  }, [projectDetail])
 
   return (
-    <DndContextWrapper
-      columns={columns}
-      setColumns={setColumns}
-      dragTask={dragTask}
-      setDragTask={setDragTask}
-      setActiveColumn={setActiveColumn}
-    >
+    <DndContextWrapper>
       <Stack direction="row" gap={2} px={3} pb={2} sx={{ overflowX: 'auto' }}>
         {columns.map((column) => (
           <Card
@@ -47,7 +36,7 @@ const ProjectBoard = () => {
             sx={{
               position: 'relative',
               paddingLeft: 5,
-              minWidth: 355,
+              minWidth: 365,
               overflowX: 'hidden',
               height: 'calc(100vh - 17.5rem)',
               backgroundColor: theme.palette.grey[900],
@@ -86,8 +75,8 @@ const ProjectBoard = () => {
               key={column.id}
               id={column.id}
               tasks={column.tasks}
-              dragTask={dragTask}
               addTaskForm={addTaskForm}
+              setAddTaskForm={setAddTaskForm}
             />
           </Card>
         ))}

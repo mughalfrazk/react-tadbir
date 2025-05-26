@@ -37,7 +37,7 @@ const createProjectApi = async (payload: CreateProjectPayloadModel) => {
   return project_user
 }
 
-const getAllUserProjectsApi = async (user_id: string) => {
+const getUserProjectListApi = async (user_id: string) => {
   const { data, error: project_users_err } = await projectUserEntity()
     .select(
       `
@@ -52,18 +52,19 @@ const getAllUserProjectsApi = async (user_id: string) => {
   return ProjectTableListDataParser(data)
 }
 
-const getProjectDetailApi = async (project_id: string) => {
+const getProjectDetailApi = async (project_id: string, user_id: string) => {
   const { data } = await projectUserEntity()
     .select(
       `
     id,
-    projects (id, name, description, columns (*, tasks(*))),
+    projects (id, name, description, columns (*, tasks(*, task_assignees (id, profiles (id, name, email, photo_url))))),
     project_roles (id, name, description)
     `
     )
     .eq('project_id', project_id)
+    .eq('user_id', user_id)
 
   return ProjectDetailDataParser(data?.[0])
 }
 
-export { createProjectApi, getAllUserProjectsApi, getProjectDetailApi }
+export { createProjectApi, getUserProjectListApi, getProjectDetailApi }

@@ -1,9 +1,10 @@
 import { useDroppable } from '@dnd-kit/core'
 import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable'
+import { Dispatch, SetStateAction } from 'react'
 import { TbPlaylistX } from 'react-icons/tb'
 
 import { Box, Paper, Stack, Typography } from '@/components/mui'
-import { TaskListModel, TaskModel } from '@/lib/models/task.model'
+import { TaskWithAssigneesListModel } from '@/lib/models/task.model'
 
 import AddTaskForm from './AddTaskForm'
 import SortableItem from './SortableItem'
@@ -11,24 +12,22 @@ import SortableItem from './SortableItem'
 const Column = ({
   id,
   tasks,
-  dragTask,
-  addTaskForm
+  addTaskForm,
+  setAddTaskForm
 }: {
   id: string
-  tasks: TaskListModel
-  dragTask: TaskModel | null
+  tasks: TaskWithAssigneesListModel
   addTaskForm: string
+  setAddTaskForm: Dispatch<SetStateAction<string>>
 }) => {
   const { setNodeRef } = useDroppable({ id })
 
   return (
     <Box ref={setNodeRef} className="rounded overflow-y-auto p-3" height="100%">
-      {addTaskForm === id && <AddTaskForm />}
+      {addTaskForm === id && <AddTaskForm columnId={id} setAddTaskForm={setAddTaskForm} />}
       <SortableContext items={tasks} strategy={verticalListSortingStrategy}>
         {tasks.length ? (
-          tasks.map((task) => (
-            <SortableItem key={task.id} id={String(task.id)} task={task} dragTask={dragTask} />
-          ))
+          tasks.map((task) => <SortableItem key={task.id} id={String(task.id)} task={task} />)
         ) : (
           <Stack sx={{ height: '100%' }} justifyContent="center">
             <Paper

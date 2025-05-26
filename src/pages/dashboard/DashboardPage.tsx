@@ -49,14 +49,14 @@ const dummyColumns: GridColDef<ProjectTableListModel[number]>[] = [
 ]
 
 const DashboardPage = () => {
-  const { data = [], isLoading } = useGetProjectListQuery()
+  const { projectList, isLoading } = useGetProjectListQuery()
 
   return (
     <BreadCrumbBackground>
       <DataGrid
         columns={dummyColumns}
         loading={isLoading}
-        rows={data}
+        rows={projectList}
         height="100%"
         checkboxSelection
         disableRowSelectionOnClick

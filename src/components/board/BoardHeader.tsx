@@ -1,11 +1,14 @@
+import GroupAddRoundedIcon from '@mui/icons-material/GroupAddRounded'
 import { Fragment, useState } from 'react'
-import { AiFillPicture } from 'react-icons/ai'
 
-import { Button, Drawer, Stack, Typography } from '../mui'
+import { Button, Drawer, Modal, Stack, Typography } from '../mui'
+import ContributorsModal from './ContributorsModal'
 import UnsplashDrawer from './UnsplashDrawer'
 
 const BoardHeader = () => {
   const [showBgDrawer, setShowBgDrawer] = useState<boolean>(false)
+  const [showProjectUsersModal, setShowProjectUsersModal] = useState<boolean>(false)
+  const closeUsersModalHandler = () => setShowProjectUsersModal(false)
 
   const closeDrawerHandelr = () => {
     setShowBgDrawer(false)
@@ -13,6 +16,15 @@ const BoardHeader = () => {
 
   return (
     <Fragment>
+      <Modal
+        open={showProjectUsersModal}
+        onClose={closeUsersModalHandler}
+        title="Contributors"
+        width={500}
+        minHeight="60vh"
+      >
+        <ContributorsModal />
+      </Modal>
       <Drawer anchor="right" open={showBgDrawer} onClose={closeDrawerHandelr}>
         <UnsplashDrawer onClose={closeDrawerHandelr} />
       </Drawer>
@@ -29,9 +41,14 @@ const BoardHeader = () => {
           <Typography variant="h3">Ipro Fix</Typography>
           <Typography variant="body1">Mobile retailer software</Typography>
         </Stack>
-        <Button isIconOnly variant="contained" onClick={() => setShowBgDrawer(true)}>
-          <AiFillPicture size={24} />
-        </Button>
+        <Stack flexDirection="row" gap={1}>
+          <Button isIconOnly variant="contained" onClick={() => setShowProjectUsersModal(true)}>
+            <GroupAddRoundedIcon sx={{ fontSize: 26 }} />
+          </Button>
+          {/* <Button isIconOnly variant="contained" onClick={() => setShowBgDrawer(true)}>
+            <AiFillPicture size={24} />
+          </Button> */}
+        </Stack>
       </Stack>
     </Fragment>
   )

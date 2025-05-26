@@ -20,4 +20,14 @@ export const UserProfileSchema = z.object({
   accessToken: z.string()
 })
 
+export const ProfileSchema = z.object({
+  id: z.string(),
+  email: z.string(),
+  name: z.string(),
+  photo_url: z.string().nullish()
+})
+
+export const ProfileListSchema = z.array(ProfileSchema)
+
 export type UserProfileModel = z.infer<typeof UserProfileSchema>
+export type ProfileListModel = z.infer<typeof ProfileListSchema>

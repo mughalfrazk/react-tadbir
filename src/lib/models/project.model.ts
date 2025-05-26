@@ -9,21 +9,20 @@ export const CreateProjectPayloadSchema = z.object({
 })
 
 export const ProjectSchema = z.object({
-  id: z.string(),
+  id: z.number(),
   name: z.string(),
   description: z.string().nullish()
+})
+
+export const ProjectWithColumnsSchema = ProjectSchema.extend({
+  columns: ColumnListSchema
 })
 
 export const ProjectListSchema = z.array(ProjectSchema)
 
 export const ProjectDetailSchema = z.object({
   id: z.number(),
-  projects: z.object({
-    id: z.number(),
-    name: z.string(),
-    description: z.string(),
-    columns: ColumnListSchema
-  }),
+  projects: ProjectWithColumnsSchema,
   project_roles: z.object({
     id: z.number(),
     name: z.string(),
@@ -50,6 +49,7 @@ export const ProjectTableListSchema = z.array(ProjectTableItemSchema)
 export type CreateProjectPayloadModel = z.infer<typeof CreateProjectPayloadSchema>
 export type ProjectModel = z.infer<typeof ProjectSchema>
 export type ProjectListModel = z.infer<typeof ProjectListSchema>
+export type ProjectWithColumnsModel = z.infer<typeof ProjectWithColumnsSchema>
 
 export type ProjectDetailModel = z.infer<typeof ProjectDetailSchema>
 export type ProjectTableItemModel = z.infer<typeof ProjectTableItemSchema>

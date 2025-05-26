@@ -1,18 +1,12 @@
 import { useSortable } from '@dnd-kit/sortable'
 
-import { TaskModel } from '@/lib/models/task.model'
+import { useBoard } from '@/context/board-context'
+import { TaskWithAssigneesModel } from '@/lib/models/task.model'
 
 import TaskCard from './TaskCard'
 
-const SortableItem = ({
-  id,
-  task,
-  dragTask
-}: {
-  id: string
-  task: TaskModel
-  dragTask: TaskModel | null
-}) => {
+const SortableItem = ({ id, task }: { id: string; task: TaskWithAssigneesModel }) => {
+  const { dragTask } = useBoard()
   const { attributes, listeners, setNodeRef, transform } = useSortable({ id })
 
   return (

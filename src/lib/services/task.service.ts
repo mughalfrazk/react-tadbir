@@ -1,10 +1,15 @@
-import { CreateTaskPayloadModel } from '../models/task.model'
+import { parseFactory } from '@/utils/parse-factory'
+
+import { CreateTaskPayloadModel, TaskSchema } from '../models/task.model'
 
 import { taskEntity } from '.'
 
+const TaskDataParser = parseFactory(TaskSchema, 'TaskDataParser')
+
 const createTaskApi = async (payload: CreateTaskPayloadModel) => {
-  const { error } = await taskEntity().insert(payload)
+  const { data, error } = await taskEntity().upsert(payload).select('*')
   if (error) throw error
+  return TaskDataParser(data?.[0])
 }
 
 export { createTaskApi }
