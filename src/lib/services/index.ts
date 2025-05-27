@@ -1,18 +1,18 @@
 import supabase from '../supabase'
 
-const profileEntity = () => supabase.from('profiles')
-const projectEntity = () => supabase.from('projects')
-const projectUserEntity = () => supabase.from('project_users')
-const projectRoleEntity = () => supabase.from('project_roles')
-const columnEntity = () => supabase.from('columns')
-const taskEntity = () => supabase.from('tasks')
-const taskAssigneeEntity = () => supabase.from('task_assignees')
+const profileEntity = () => supabase.from('profile')
+const projectEntity = () => supabase.from('project')
+const contributorEntity = () => supabase.from('contributor')
+const rolesEntity = () => supabase.from('role')
+const columnEntity = () => supabase.from('column')
+const taskEntity = () => supabase.from('task')
+const taskAssigneeEntity = () => supabase.from('task_assignee')
 
 export {
   profileEntity,
   projectEntity,
-  projectUserEntity,
-  projectRoleEntity,
+  contributorEntity,
+  rolesEntity,
   columnEntity,
   taskEntity,
   taskAssigneeEntity

@@ -3,7 +3,7 @@ import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
 import * as React from 'react'
 
-import { ProjectRoleModel } from '@/lib/models/project_role.model'
+import { ProjectRoleModel } from '@/lib/models/role.model'
 
 const RoleSelectMenu = ({ role }: { role: ProjectRoleModel }) => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
@@ -18,8 +18,8 @@ const RoleSelectMenu = ({ role }: { role: ProjectRoleModel }) => {
   return (
     <div>
       <Button
-        id="basic-button"
-        aria-controls={open ? 'basic-menu' : undefined}
+        id="contributor-role-button"
+        aria-controls={open ? 'contributor-role-menu' : undefined}
         aria-haspopup="true"
         aria-expanded={open ? 'true' : undefined}
         onClick={handleClick}
@@ -27,12 +27,12 @@ const RoleSelectMenu = ({ role }: { role: ProjectRoleModel }) => {
         {role.name}
       </Button>
       <Menu
-        id="basic-menu"
+        id="contributor-role-menu"
         anchorEl={anchorEl}
         open={open}
         onClose={handleClose}
         MenuListProps={{
-          'aria-labelledby': 'basic-button'
+          'aria-labelledby': 'contributor-role-button'
         }}
       >
         <MenuItem onClick={handleClose}>Profile</MenuItem>

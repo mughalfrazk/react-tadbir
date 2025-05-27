@@ -13,6 +13,7 @@ import { ReactNode } from 'react'
 
 import { Stack } from '@/components/mui'
 import { useBoard } from '@/context/board-context'
+import { useSwtichTaskColumnMutation } from '@/lib/queries/task.query'
 
 import TaskCard from './TaskCard'
 
@@ -30,13 +31,16 @@ const DndContextWrapper = ({
       activationConstraint: { delay: 100, tolerance: 2 }
     })
   )
+
+  const { mutate } = useSwtichTaskColumnMutation({ onSuccess: () => {} })
+
   const onDragStart = (event: DragOverEvent) => {
     const { active } = event
-    const sourceColumn = columns.find((col) => col.tasks.some((task) => task.id === active.id))
+    const sourceColumn = columns.find((col) => col.task.some((task) => task.id === active.id))
     if (!sourceColumn) return
 
-    const activeTaskIndex = sourceColumn.tasks.findIndex((task) => task.id === active.id)
-    const activeTask = sourceColumn.tasks[activeTaskIndex]
+    const activeTaskIndex = sourceColumn.task.findIndex((task) => task.id === active.id)
+    const activeTask = sourceColumn.task[activeTaskIndex]
     setDragTask(activeTask)
   }
 
@@ -45,7 +49,7 @@ const DndContextWrapper = ({
     if (!over) return
 
     const targetColumn = columns.find(
-      (col) => col.tasks.some((task) => task.id === over.id) || col.id === over.id
+      (col) => col.task.some((task) => task.id === over.id) || col.id === over.id
     )
 
     if (!targetColumn) return
@@ -60,26 +64,24 @@ const DndContextWrapper = ({
 
     setColumns((prevColumns) => {
       // Find source and target columns
-      const sourceColumn = prevColumns.find((col) =>
-        col.tasks.some((task) => task.id === active.id)
-      )
+      const sourceColumn = prevColumns.find((col) => col.task.some((task) => task.id === active.id))
       const targetColumn = prevColumns.find(
-        (col) => col.tasks.some((task) => task.id === over.id) || col.id === over.id
+        (col) => col.task.some((task) => task.id === over.id) || col.id === over.id
       )
 
       if (!sourceColumn || !targetColumn) return prevColumns
 
       // Find active task
-      const activeTaskIndex = sourceColumn.tasks.findIndex((task) => task.id === active.id)
-      const activeTask = sourceColumn.tasks[activeTaskIndex]
+      const activeTaskIndex = sourceColumn.task.findIndex((task) => task.id === active.id)
+      const activeTask = sourceColumn.task[activeTaskIndex]
 
       // If moving within the same column (Reordering)
       if (sourceColumn.id === targetColumn.id) {
-        const overTaskIndex = targetColumn.tasks.findIndex((task) => task.id === over.id)
+        const overTaskIndex = targetColumn.task.findIndex((task) => task.id === over.id)
 
         return prevColumns.map((col) =>
           col.id === sourceColumn.id
-            ? { ...col, tasks: arrayMove(col.tasks, activeTaskIndex, overTaskIndex) }
+            ? { ...col, task: arrayMove(col.task, activeTaskIndex, overTaskIndex) }
             : col
         )
       }
@@ -89,13 +91,14 @@ const DndContextWrapper = ({
         if (col.id === sourceColumn.id) {
           return {
             ...col,
-            tasks: col.tasks.filter((task) => task.id !== active.id)
+            task: col.task.filter((task) => task.id !== active.id)
           }
         }
         if (col.id === targetColumn.id) {
+          mutate({ task_id: activeTask.id, column_id: targetColumn.id })
           return {
             ...col,
-            tasks: [...col.tasks, activeTask]
+            task: [...col.task, activeTask]
           }
         }
         return col

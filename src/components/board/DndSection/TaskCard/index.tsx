@@ -20,9 +20,10 @@ import TaskModalContent from './TaskModalContent'
 
 export type TaskCardProps = {
   task: TaskWithAssigneesModel
+  columnId?: string
 }
 
-const TaskCard: FC<TaskCardProps> = ({ task }) => {
+const TaskCard: FC<TaskCardProps> = ({ task, columnId }) => {
   const barIconsStyles = { marginLeft: '0.25rem', marginRight: '0.25rem' }
 
   const [showTaskDetail, setShowTaskDetail] = useState<TaskWithAssigneesModel | null>(null)
@@ -31,7 +32,7 @@ const TaskCard: FC<TaskCardProps> = ({ task }) => {
   return (
     <>
       <Modal open={Boolean(showTaskDetail)} onClose={handleClose} width={540}>
-        <TaskModalContent task={task} handleClose={handleClose} />
+        <TaskModalContent task={task} columnId={columnId} handleClose={handleClose} />
       </Modal>
       <Card sx={{ width: 300 }}>
         <ActionArea
@@ -56,12 +57,12 @@ const TaskCard: FC<TaskCardProps> = ({ task }) => {
                 {task.description && <BsTextParagraph size={22} style={{ ...barIconsStyles }} />}
               </Stack>
               <AvatarGroup spacing="small" max={3}>
-                {task?.task_assignees?.map((a, idx) => (
+                {task?.task_assignee?.map((a, idx) => (
                   <Avatar
                     key={idx}
-                    alt={a.profiles.name}
-                    src={a.profiles?.photo_url ?? ''}
-                    tooltip={a.profiles.name}
+                    alt={a.profile.name}
+                    src={a.profile?.photo_url ?? ''}
+                    tooltip={a.profile.name}
                     sx={{ width: 30, height: 30 }}
                   />
                 ))}

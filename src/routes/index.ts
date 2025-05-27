@@ -2,7 +2,7 @@ import { createBrowserRouter } from 'react-router'
 
 import MainLayout from '@/components/layout/main-layout'
 import AuthPage from '@/pages/auth'
-import DashboardPage from '@/pages/dashboard/DashboardPage'
+import DashboardPage from '@/pages/dashboard'
 import CreateProjectPage from '@/pages/dashboard/project/create'
 import ProjectDetailPage from '@/pages/dashboard/project/detail'
 import HomePage from '@/pages/home'

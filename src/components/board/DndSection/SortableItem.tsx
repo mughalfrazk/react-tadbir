@@ -5,7 +5,15 @@ import { TaskWithAssigneesModel } from '@/lib/models/task.model'
 
 import TaskCard from './TaskCard'
 
-const SortableItem = ({ id, task }: { id: string; task: TaskWithAssigneesModel }) => {
+const SortableItem = ({
+  id,
+  task,
+  columnId
+}: {
+  id: string
+  task: TaskWithAssigneesModel
+  columnId: string
+}) => {
   const { dragTask } = useBoard()
   const { attributes, listeners, setNodeRef, transform } = useSortable({ id })
 
@@ -18,7 +26,7 @@ const SortableItem = ({ id, task }: { id: string; task: TaskWithAssigneesModel }
       style={{ transform: transform ? `translate(${transform.x}px, ${transform.y}px)` : undefined }}
     >
       <div className={`${dragTask?.id === id ? 'invisible' : 'visible'}`}>
-        <TaskCard task={task} />
+        <TaskCard task={task} columnId={columnId} />
       </div>
     </div>
   )

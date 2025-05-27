@@ -60,7 +60,7 @@ const Modal = ({
   }
 
   return (
-    <MuiModal {...otherProps}>
+    <MuiModal closeAfterTransition={false} {...otherProps}>
       <ClickAwayListener onClickAway={onClose}>
         <Paper sx={paperStyles}>
           {title && (

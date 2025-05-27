@@ -16,13 +16,13 @@ const dummyColumns: GridColDef<ProjectTableListModel[number]>[] = [
     field: 'name',
     headerName: 'Name',
     minWidth: 200,
-    valueGetter: (_, row) => `${row.projects.name}`
+    valueGetter: (_, row) => `${row.project.name}`
   },
   {
     field: 'description',
     headerName: 'Description',
     flex: 1,
-    valueGetter: (_, row) => `${row.projects.description}`
+    valueGetter: (_, row) => `${row.project.description}`
   },
   {
     field: 'role',
@@ -30,7 +30,7 @@ const dummyColumns: GridColDef<ProjectTableListModel[number]>[] = [
     headerAlign: 'right',
     align: 'right',
     width: 150,
-    valueGetter: (_, row) => `${row.project_roles.name}`
+    valueGetter: (_, row) => `${row.role.name}`
   },
   {
     field: 'action',
@@ -40,7 +40,7 @@ const dummyColumns: GridColDef<ProjectTableListModel[number]>[] = [
     width: 100,
     renderCell: ({ row }) => (
       <Stack height="100%" flexDirection="row" justifyContent="flex-end" alignItems="center">
-        <Button component="a" href={`/dashboard/project/${row.projects.id}`} isIconOnly>
+        <Button component="a" href={`/dashboard/project/${row.project.id}`} isIconOnly>
           <ViewKanbanRoundedIcon />
         </Button>
       </Stack>

@@ -27,7 +27,7 @@ const CreateProjectPage = () => {
   const { mutate, isPending } = useCreateProjectMutate({
     onSuccess: () => {
       reset()
-      setValue('user_id', session?.uid as string)
+      setValue('profile_id', session?.uid as string)
       navigate('/dashboard')
     }
   })
@@ -69,7 +69,7 @@ const CreateProjectPage = () => {
               rows={3}
               fieldError={errors['description']}
             />
-            <TextField {...register('user_id')} name="user_id" value={session?.uid} hidden />
+            <TextField {...register('profile_id')} name="profile_id" value={session?.uid} hidden />
             <Button type="submit" variant="contained" fullWidth loading={isPending} sx={{ mt: 2 }}>
               Submit
             </Button>

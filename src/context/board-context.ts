@@ -2,6 +2,7 @@ import { Dispatch, SetStateAction, createContext, useContext } from 'react'
 
 import { ColumnListModel } from '@/lib/models/column.model'
 import { TaskWithAssigneesModel } from '@/lib/models/task.model'
+import { TaskAssigneeModel } from '@/lib/models/task_assignee.model'
 
 export type BoardContext = {
   columns: ColumnListModel
@@ -11,7 +12,9 @@ export type BoardContext = {
   activeColumn: string | null
   setActiveColumn: Dispatch<SetStateAction<string | null>>
   updateTaskInColumn: (columnId: string, task: TaskWithAssigneesModel) => void
-  removeAsigneeInTask: (user_id: string, task_id: string) => void
+  removeAsigneeFromTask: (userId: string, columnId: string, taskId: string) => void
+  addAsigneeToTask: (columnId: string, taskId: string, assignee: TaskAssigneeModel) => void
+  deleteTask: (columnId: string, taskId: string) => void
 }
 
 const BoardContext = createContext<BoardContext>({
@@ -22,7 +25,9 @@ const BoardContext = createContext<BoardContext>({
   activeColumn: null,
   setActiveColumn: () => {},
   updateTaskInColumn: () => {},
-  removeAsigneeInTask: () => {}
+  removeAsigneeFromTask: () => {},
+  addAsigneeToTask: () => {},
+  deleteTask: () => {}
 })
 
 export default BoardContext

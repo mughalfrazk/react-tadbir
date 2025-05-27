@@ -10,7 +10,7 @@ import {
   useCreateProjectContributorMutation,
   useDeleteProjectUserMutation,
   useGetProjectUsersListQuery
-} from '@/lib/queries/project_user.query'
+} from '@/lib/queries/contributor.query'
 import { useSearchUserMutation } from '@/lib/queries/user.query'
 
 import RoleSelectMenu from './RoleSelectMenu'
@@ -52,7 +52,7 @@ const ContributorsModal = () => {
 
     searchUserMutation({
       text: inputValue,
-      existingContributorIds: projectUsersList?.map((i) => i.profiles.id) ?? []
+      existingContributorIds: projectUsersList?.map((i) => i.profile.id) ?? []
     })
   }
 
@@ -72,7 +72,7 @@ const ContributorsModal = () => {
               if (!value) return
               createContributorMutation({
                 project_id: project_id as string,
-                user_id: value?.id
+                profile_id: value?.id
               })
             }}
             renderInput={(params) => (
@@ -122,22 +122,22 @@ const ContributorsModal = () => {
             }}
           >
             <Stack gap={0.5}>
-              <Typography variant="h4">{item.profiles.name}</Typography>
-              <Typography>{item.profiles.email}</Typography>
+              <Typography variant="h4">{item.profile.name}</Typography>
+              <Typography>{item.profile.email}</Typography>
             </Stack>
             <Stack flexDirection="row" alignItems="center">
-              <RoleSelectMenu role={item.project_roles} />
+              <RoleSelectMenu role={item.role} />
               <Button
                 isIconOnly
                 onClick={() => {
-                  setDeletingContributingId(item.profiles.id)
+                  setDeletingContributingId(item.profile.id)
                   deleteContributorMutation({
                     project_id: project_id as string,
-                    user_id: item.profiles.id
+                    profile_id: item.profile.id
                   })
                 }}
               >
-                {deletingContributingId === item.profiles.id ? (
+                {deletingContributingId === item.profile.id ? (
                   <CircularProgress size={22} />
                 ) : (
                   <DeleteForeverRoundedIcon color="error" />

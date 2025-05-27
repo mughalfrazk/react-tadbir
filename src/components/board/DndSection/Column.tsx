@@ -27,7 +27,9 @@ const Column = ({
       {addTaskForm === id && <AddTaskForm columnId={id} setAddTaskForm={setAddTaskForm} />}
       <SortableContext items={tasks} strategy={verticalListSortingStrategy}>
         {tasks.length ? (
-          tasks.map((task) => <SortableItem key={task.id} id={String(task.id)} task={task} />)
+          tasks.map((task) => (
+            <SortableItem key={task.id} id={String(task.id)} task={task} columnId={id} />
+          ))
         ) : (
           <Stack sx={{ height: '100%' }} justifyContent="center">
             <Paper

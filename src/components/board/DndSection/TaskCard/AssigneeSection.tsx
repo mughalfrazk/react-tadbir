@@ -5,9 +5,10 @@ import { useParams } from 'react-router'
 
 import { Avatar, Box, Button, Menu, MenuItem, Stack, Typography } from '@/components/mui'
 import CircularProgress from '@/components/mui/CircularProgress'
+import { useBoard } from '@/context/board-context'
 import { TaskAssigneeListModel } from '@/lib/models/task_assignee.model'
 import { ProfileListModel } from '@/lib/models/user.model'
-import { useGetProjectUsersListQuery } from '@/lib/queries/project_user.query'
+import { useGetProjectUsersListQuery } from '@/lib/queries/contributor.query'
 import {
   useCreateTaskAssigneeMutation,
   useDeleteTaskAssignmentMutation
@@ -15,12 +16,15 @@ import {
 
 const AssigneeSection = ({
   assignees,
-  taskId
+  taskId,
+  columnId
 }: {
   assignees: TaskAssigneeListModel
   taskId: string
+  columnId?: string
 }) => {
   const { project_id } = useParams()
+  const { addAsigneeToTask, removeAsigneeFromTask } = useBoard()
   const { data: projectUsersList } = useGetProjectUsersListQuery(project_id as string)
 
   const [contributorsList, setContributorsList] = useState<ProfileListModel>([])
@@ -38,34 +42,35 @@ const AssigneeSection = ({
 
   const { mutate: addAssigneeMutation, isPending: addAssigneeLoading } =
     useCreateTaskAssigneeMutation({
-      onSuccess: () => {}
+      onSuccess: (result) => {
+        if (!columnId) return
+
+        addAsigneeToTask(columnId, taskId, result)
+      }
     })
 
   const { mutate: deleteAssigneeMutation, isPending: deleteAssigneeLoading } =
     useDeleteTaskAssignmentMutation({
       onSuccess: (result) => {
-        console.log(result)
-        // deleteAssigneeFromTask(result.user_id, result.task_id)
+        if (!columnId) return
+
+        removeAsigneeFromTask(result.profile_id, columnId, result.task_id)
       }
     })
 
   const addAssignee = (userId: string) => {
-    addAssigneeMutation({ task_id: taskId, user_id: userId })
+    addAssigneeMutation({ task_id: taskId, profile_id: userId })
     handleClose()
   }
 
   useEffect(() => {
     if (projectUsersList?.length) {
-      const assignedIds = assignees.map((a) => a.profiles.id)
+      const assignedIds = assignees.map((a) => a.profile.id)
       setContributorsList(
-        projectUsersList.filter((c) => !assignedIds.includes(c.profiles.id)).map((c) => c.profiles)
+        projectUsersList.filter((c) => !assignedIds.includes(c.profile.id)).map((c) => c.profile)
       )
     }
   }, [projectUsersList, assignees])
-
-  useEffect(() => {
-    console.log('contributorsList: ', contributorsList)
-  }, [contributorsList])
 
   return (
     <Stack mt={2} px={1}>
@@ -76,9 +81,9 @@ const AssigneeSection = ({
         {assignees?.map((a, idx) => (
           <Box key={idx} position="relative">
             <Avatar
-              alt={a.profiles.name}
-              src={a.profiles?.photo_url ?? ''}
-              tooltip={a.profiles.name}
+              alt={a.profile.name}
+              src={a.profile?.photo_url ?? ''}
+              tooltip={a.profile.name}
               sx={{ width: 35, height: 35, opacity: showDeleteBtnId === a.id ? '0.2' : '1' }}
             />
             <div
@@ -93,7 +98,7 @@ const AssigneeSection = ({
                   isIconOnly
                   size="small"
                   onClick={() =>
-                    deleteAssigneeMutation({ task_id: taskId, user_id: a.profiles.id })
+                    deleteAssigneeMutation({ task_id: taskId, profile_id: a.profile.id })
                   }
                 >
                   <Close sx={{ visibility: showDeleteBtnId === a.id ? 'visible' : 'hidden' }} />
@@ -105,8 +110,8 @@ const AssigneeSection = ({
         {addAssigneeLoading && <CircularProgress size={30} />}
         <Button
           isIconOnly
-          id="basic-button"
-          aria-controls={open ? 'basic-menu' : undefined}
+          id="assignee-button"
+          aria-controls={open ? 'assignee-menu' : undefined}
           aria-haspopup="true"
           aria-expanded={open ? 'true' : undefined}
           onClick={handleClick}
@@ -115,12 +120,13 @@ const AssigneeSection = ({
         </Button>
         <Box>
           <Menu
-            id="basic-menu"
+            id="assignee-menu"
             anchorEl={anchorEl}
             open={open}
             onClose={handleClose}
+            closeAfterTransition={false}
             MenuListProps={{
-              'aria-labelledby': 'basic-button'
+              'aria-labelledby': 'assignee-button'
             }}
           >
             {!contributorsList.length ? (

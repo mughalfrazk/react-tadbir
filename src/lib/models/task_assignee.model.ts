@@ -4,14 +4,14 @@ import { ProfileSchema } from './user.model'
 
 export const TaskAssigneeSchema = z.object({
   id: z.number(),
-  profiles: ProfileSchema
+  profile: ProfileSchema
 })
 
 export const TaskAssigneeRowSchema = z.object({
   id: z.number(),
   created_at: z.string(),
   task_id: z.string(),
-  user_id: z.string()
+  profile_id: z.string()
 })
 
 export const TaskAssigneeListSchema = z.array(TaskAssigneeSchema)

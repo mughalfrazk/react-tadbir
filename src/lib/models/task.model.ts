@@ -22,7 +22,7 @@ export const TaskSchema = z.object({
 })
 
 export const TaskWithAssigneesSchema = TaskSchema.extend({
-  task_assignees: TaskAssigneeListSchema
+  task_assignee: TaskAssigneeListSchema
 })
 
 export const TaskWithAssigneesListSchema = z.array(TaskWithAssigneesSchema)

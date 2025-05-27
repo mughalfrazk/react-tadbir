@@ -5,7 +5,7 @@ import { ColumnListSchema } from './column.model'
 export const CreateProjectPayloadSchema = z.object({
   name: z.string().min(1, 'Project name is required'),
   description: z.string().nullish(),
-  user_id: z.string()
+  profile_id: z.string()
 })
 
 export const ProjectSchema = z.object({
@@ -15,15 +15,15 @@ export const ProjectSchema = z.object({
 })
 
 export const ProjectWithColumnsSchema = ProjectSchema.extend({
-  columns: ColumnListSchema
+  column: ColumnListSchema
 })
 
 export const ProjectListSchema = z.array(ProjectSchema)
 
 export const ProjectDetailSchema = z.object({
   id: z.number(),
-  projects: ProjectWithColumnsSchema,
-  project_roles: z.object({
+  project: ProjectWithColumnsSchema,
+  role: z.object({
     id: z.number(),
     name: z.string(),
     description: z.string()
@@ -32,12 +32,12 @@ export const ProjectDetailSchema = z.object({
 
 export const ProjectTableItemSchema = z.object({
   id: z.number(),
-  projects: z.object({
+  project: z.object({
     id: z.number(),
     name: z.string(),
     description: z.string()
   }),
-  project_roles: z.object({
+  role: z.object({
     id: z.number(),
     name: z.string(),
     description: z.string()

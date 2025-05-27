@@ -6,7 +6,7 @@ import {
   ProjectTableListSchema
 } from '../models/project.model'
 
-import { projectEntity, projectRoleEntity, projectUserEntity } from '.'
+import { contributorEntity, projectEntity, rolesEntity } from '.'
 
 const ProjectTableListDataParser = parseFactory(
   ProjectTableListSchema,
@@ -22,47 +22,47 @@ const createProjectApi = async (payload: CreateProjectPayloadModel) => {
   const { data: project_data, error: projects_err } = await projectEntity().upsert(req).select()
   if (projects_err) throw projects_err
 
-  const { data: owner_role, error: project_roles_err } = await projectRoleEntity()
+  const { data: owner_role, error: project_roles_err } = await rolesEntity()
     .select('*')
     .eq('name', 'Owner')
   if (project_roles_err) throw project_roles_err
 
-  const { data: project_user, error: project_users_err } = await projectUserEntity().insert({
+  const { data: project_user, error: project_users_err } = await contributorEntity().insert({
     project_id: project_data?.[0]?.id,
-    project_role_id: owner_role?.[0]?.id,
-    user_id: payload.user_id
+    role_id: owner_role?.[0]?.id,
+    profile_id: payload.profile_id
   })
   if (project_users_err) throw project_users_err
 
   return project_user
 }
 
-const getUserProjectListApi = async (user_id: string) => {
-  const { data, error: project_users_err } = await projectUserEntity()
+const getUserProjectListApi = async (profile_id: string) => {
+  const { data, error: project_users_err } = await contributorEntity()
     .select(
       `
     id, 
-    projects (id, name, description),
-    project_roles (id, name, description)
+    project (id, name, description),
+    role (id, name, description)
     `
     )
-    .eq('user_id', user_id)
+    .eq('profile_id', profile_id)
 
   console.log('project_users_err', project_users_err)
   return ProjectTableListDataParser(data)
 }
 
-const getProjectDetailApi = async (project_id: string, user_id: string) => {
-  const { data } = await projectUserEntity()
+const getProjectDetailApi = async (project_id: string, profile_id: string) => {
+  const { data } = await contributorEntity()
     .select(
       `
     id,
-    projects (id, name, description, columns (*, tasks(*, task_assignees (id, profiles (id, name, email, photo_url))))),
-    project_roles (id, name, description)
+    project (id, name, description, column (*, task(*, task_assignee (id, profile (id, name, email, photo_url))))),
+    role (id, name, description)
     `
     )
     .eq('project_id', project_id)
-    .eq('user_id', user_id)
+    .eq('profile_id', profile_id)
 
   return ProjectDetailDataParser(data?.[0])
 }

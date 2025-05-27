@@ -14,7 +14,7 @@ export const ColumnSchema = z.object({
   sort: z.number(),
   project_id: z.number(),
   created_at: z.string(),
-  tasks: TaskWithAssigneesListSchema
+  task: TaskWithAssigneesListSchema
 })
 
 export const ColumnListSchema = z.array(ColumnSchema)

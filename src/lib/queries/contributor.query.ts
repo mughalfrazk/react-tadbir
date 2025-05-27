@@ -4,7 +4,7 @@ import {
   createContributorApi,
   deleteContributorApi,
   getAllContributorsApi
-} from '../services/project_user.service'
+} from '../services/contributor.service'
 
 const useGetProjectUsersListQuery = (project_id: string) => {
   return useQuery({
@@ -24,8 +24,8 @@ const useCreateProjectContributorMutation = ({
   const queryClient = useQueryClient()
 
   return useMutation({
-    mutationFn: ({ project_id, user_id }: { project_id: string; user_id: string }) =>
-      createContributorApi(project_id, user_id),
+    mutationFn: ({ project_id, profile_id }: { project_id: string; profile_id: string }) =>
+      createContributorApi(project_id, profile_id),
     onSuccess: () => {
       onSuccess()
       queryClient.invalidateQueries({ queryKey: ['project_users_list', project_id] })
@@ -43,8 +43,8 @@ const useDeleteProjectUserMutation = ({
   const queryClient = useQueryClient()
 
   return useMutation({
-    mutationFn: ({ project_id, user_id }: { project_id: string; user_id: string }) =>
-      deleteContributorApi(project_id, user_id),
+    mutationFn: ({ project_id, profile_id }: { project_id: string; profile_id: string }) =>
+      deleteContributorApi(project_id, profile_id),
     onSuccess: () => {
       onSuccess()
       queryClient.invalidateQueries({ queryKey: ['project_users_list', project_id] })

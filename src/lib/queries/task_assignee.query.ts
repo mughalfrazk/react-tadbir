@@ -9,8 +9,8 @@ const useCreateTaskAssigneeMutation = ({
   onSuccess: (result: TaskAssigneeModel) => void
 }) => {
   return useMutation({
-    mutationFn: ({ task_id, user_id }: { task_id: string; user_id: string }) =>
-      createTaskAssigneeApi(task_id, user_id),
+    mutationFn: ({ task_id, profile_id }: { task_id: string; profile_id: string }) =>
+      createTaskAssigneeApi(task_id, profile_id),
     onSuccess
   })
 }
@@ -21,8 +21,8 @@ const useDeleteTaskAssignmentMutation = ({
   onSuccess: (result: TaskAssigneeRowModel) => void
 }) => {
   return useMutation({
-    mutationFn: ({ task_id, user_id }: { task_id: string; user_id: string }) =>
-      deleteTaskAssigneeApi(task_id, user_id),
+    mutationFn: ({ task_id, profile_id }: { task_id: string; profile_id: string }) =>
+      deleteTaskAssigneeApi(task_id, profile_id),
     onSuccess
   })
 }
