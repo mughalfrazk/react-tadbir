@@ -15,6 +15,7 @@ export type BoardContext = {
   removeAsigneeFromTask: (userId: string, columnId: string, taskId: string) => void
   addAsigneeToTask: (columnId: string, taskId: string, assignee: TaskAssigneeModel) => void
   deleteTask: (columnId: string, taskId: string) => void
+  deleteColumn: (columnId: string) => void
 }
 
 const BoardContext = createContext<BoardContext>({
@@ -27,7 +28,8 @@ const BoardContext = createContext<BoardContext>({
   updateTaskInColumn: () => {},
   removeAsigneeFromTask: () => {},
   addAsigneeToTask: () => {},
-  deleteTask: () => {}
+  deleteTask: () => {},
+  deleteColumn: () => {}
 })
 
 export default BoardContext

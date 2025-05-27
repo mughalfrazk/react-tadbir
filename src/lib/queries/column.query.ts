@@ -1,7 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 
 import { CreateColumnPayloadModel } from '../models/column.model'
-import { createColumnApi } from '../services/column.service'
+import { createColumnApi, deleteColumnApi } from '../services/column.service'
 // import { createColumnApi, getAllUserColumnApi } from '../services/column.service'
 
 const useGetColumnListQuery = ({ project_id }: { project_id: string }) => {
@@ -29,4 +29,11 @@ const useCreateColumnMutate = ({
   })
 }
 
-export { useGetColumnListQuery, useCreateColumnMutate }
+const useDeleteColumnMutation = ({ onSuccess }: { onSuccess: () => void }) => {
+  return useMutation({
+    mutationFn: ({ column_id }: { column_id: string }) => deleteColumnApi(column_id),
+    onSuccess
+  })
+}
+
+export { useGetColumnListQuery, useCreateColumnMutate, useDeleteColumnMutation }

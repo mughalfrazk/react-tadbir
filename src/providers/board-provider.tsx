@@ -61,6 +61,11 @@ const BoardProvider = ({ children }: { children: ReactNode }) => {
     setColumns(updatedColumns)
   }
 
+  const deleteColumn = (columnId: string) => {
+    const updatedColumns: ColumnListModel = columns.filter((c) => c.id !== columnId)
+    setColumns(updatedColumns)
+  }
+
   return (
     <BoardContext.Provider
       value={{
@@ -73,7 +78,8 @@ const BoardProvider = ({ children }: { children: ReactNode }) => {
         updateTaskInColumn,
         removeAsigneeFromTask,
         addAsigneeToTask,
-        deleteTask
+        deleteTask,
+        deleteColumn
       }}
     >
       {children}
