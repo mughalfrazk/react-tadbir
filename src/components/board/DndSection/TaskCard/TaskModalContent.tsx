@@ -174,6 +174,7 @@ const TaskModalContent = ({
             color="secondary"
             icon={<CheckCircleOutlineRoundedIcon />}
             checkedIcon={<CheckCircleRoundedIcon />}
+            checked={updateTaskPayload.done}
             onChange={(e) => {
               setUpdateTaskPayload((prev) => ({ ...prev, done: e.target.checked }))
             }}
@@ -264,7 +265,7 @@ const TaskModalContent = ({
       <Stack flexDirection="row" alignItems="center" px={1} mt={2} gap={1}>
         <Typography mb={0.5}>Mark as priority</Typography>
         <Switch
-          value={updateTaskPayload.priority}
+          checked={updateTaskPayload.priority}
           onChange={(e) => {
             setUpdateTaskPayload((prev) => ({ ...prev, priority: e.target.checked }))
           }}

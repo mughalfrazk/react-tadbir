@@ -1,50 +1,75 @@
-# React + TypeScript + Vite
+# Tadbir – Project Management with Kanban Board
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Tadbir is a simple yet powerful project management web app that lets users manage projects, collaborate with team members, and visually track progress using a Kanban board.
 
-Currently, two official plugins are available:
+## 🌟 Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- 🔐 User Authentication (Supabase)
+- 📁 Project and Task Management
+- 👥 Collaborator Support (Add/Assign)
+- 🏷️ Task Descriptions, Tags, and Deadlines
+- 📊 Kanban Board with Custom Drag-and-Drop
+- ⚡ Realtime UI updates with caching and state management
 
-## Expanding the ESLint configuration
+## 🧰 Tech Stack
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+| Layer         | Tools Used                        |
+|--------------|------------------------------------|
+| Frontend     | React, Vite                        |
+| Drag & Drop  | [dnd-kit](https://dndkit.com/)     |
+| State        | [Zustand](https://zustand-demo.pmnd.rs/) |
+| Caching/Data | [React Query](https://tanstack.com/query/latest) |
+| Backend      | [Supabase](https://supabase.com/) (PostgreSQL + Auth) |
+| Styling      | Tailwind CSS                       |
 
-- Configure the top-level `parserOptions` property like this:
+## 🚀 Getting Started
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname
-    }
-  }
-})
+### Prerequisites
+
+- Node.js 18+
+- Supabase project (set up at [supabase.com](https://supabase.com))
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/mughalfrazk/react-tadbir.git
+cd react-tadbir
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+### 2. Install dependencies
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+```bash
+yarn install
+```
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules
-  }
-})
+### 3. Set up environment variables
+Create a .env.local file in the root directory:
+```
+VITE_SUPABASE_URL=your-supabase-url
+VITE_SUPABASE_ANON_KEY=your-supabase-anon-key
+```
+
+### 4. Run the development server
+```
+yarn run dev
+```
+
+### 🧪  Demo: [Go to App](https://tadbir-web.netlify.app/)
+
+## 🤝 Contributing
+If you’d like to contribute, feel free to fork the repo and submit a pull request.
+
+## 📬 Feedback
+Got suggestions or feature requests? Feel free to open an issue or message me on [LinkedIn](https://www.linkedin.com/in/mughalfrazk/).
+
+## 📄 License
+This project is open source and available under the MIT License.
+```
+Let me know if you'd like to:
+- Add deployment instructions (e.g. Vercel/Netlify)
+- Include preview screenshots or GIFs inline
+- Add badges (tech stack, license, etc.)
+
+Happy to help refine this further!
+
 ```
