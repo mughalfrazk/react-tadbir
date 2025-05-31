@@ -57,7 +57,14 @@ const getProjectDetailApi = async (project_id: string, profile_id: string) => {
     .select(
       `
     id,
-    project (id, name, description, column (*, task(*, task_assignee (id, profile (id, name, email, photo_url))))),
+    project (id, name, description, 
+      column (*, 
+        task(*, 
+          task_assignee (id, profile (id, name, email, photo_url)), 
+          task_tag (id, tag (id, name, color))
+        )
+      )
+    ),
     role (id, name, description)
     `
     )

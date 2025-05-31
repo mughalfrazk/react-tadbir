@@ -1,12 +1,13 @@
 import DashboardIcon from '@mui/icons-material/Dashboard'
 import { useTheme } from '@mui/material'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { TbLogout2 } from 'react-icons/tb'
 import { useNavigate } from 'react-router'
 
 import { useAuth } from '@/context/auth-context'
 
 import { Avatar, ItemIcon, Menu, MenuItem } from '../mui'
+import IconButton from '../mui/IconButton'
 
 const AvatarMenu = () => {
   const theme = useTheme()
@@ -14,6 +15,7 @@ const AvatarMenu = () => {
   const { session, logoutHandler } = useAuth()
 
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null)
+  const [photoUrl, setPhotoUrl] = useState<string>('')
   const open = Boolean(anchorEl)
 
   const handleClose = () => {
@@ -24,26 +26,24 @@ const AvatarMenu = () => {
     navigate('/dashboard')
   }
 
+  useEffect(() => {
+    if (session?.photoUrl) {
+      setPhotoUrl(session?.photoUrl)
+    }
+  }, [session])
+
   return (
     <div>
-      <Avatar
-        id="basic-button"
-        aria-controls={open ? 'basic-menu' : undefined}
+      <IconButton
+        aria-controls={open ? 'avatar-menu' : undefined}
         aria-haspopup="true"
         aria-expanded={open ? 'true' : undefined}
         onClick={(e) => setAnchorEl(e.currentTarget)}
         sx={{ width: 32, height: 32 }}
-        src={session?.photoUrl}
-      />
-      <Menu
-        id="avatar-menu"
-        anchorEl={anchorEl}
-        open={open}
-        onClose={handleClose}
-        MenuListProps={{
-          'aria-labelledby': 'basic-button'
-        }}
       >
+        <Avatar src={photoUrl} sx={{ width: 32, height: 32 }} />
+      </IconButton>
+      <Menu id="avatar-menu" anchorEl={anchorEl} open={open} onClose={handleClose}>
         <MenuItem onClick={goToDashboard}>
           <ItemIcon>
             <DashboardIcon sx={{ fontSize: 20 }} />

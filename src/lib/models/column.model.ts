@@ -1,6 +1,6 @@
 import { z } from 'zod'
 
-import { TaskWithAssigneesListSchema } from './task.model'
+import { TaskWithAssigneeAndTagListSchema } from './task.model'
 
 export const CreateColumnPayloadSchema = z.object({
   name: z.string().min(1, 'Column name is required'),
@@ -14,7 +14,7 @@ export const ColumnSchema = z.object({
   sort: z.number(),
   project_id: z.number(),
   created_at: z.string(),
-  task: TaskWithAssigneesListSchema
+  task: TaskWithAssigneeAndTagListSchema
 })
 
 export const ColumnListSchema = z.array(ColumnSchema)

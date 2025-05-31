@@ -7,6 +7,8 @@ const rolesEntity = () => supabase.from('role')
 const columnEntity = () => supabase.from('column')
 const taskEntity = () => supabase.from('task')
 const taskAssigneeEntity = () => supabase.from('task_assignee')
+const tagEntity = () => supabase.from('tag')
+const taskTagEntity = () => supabase.from('task_tag')
 
 export {
   profileEntity,
@@ -15,5 +17,7 @@ export {
   rolesEntity,
   columnEntity,
   taskEntity,
-  taskAssigneeEntity
+  taskAssigneeEntity,
+  tagEntity,
+  taskTagEntity
 }

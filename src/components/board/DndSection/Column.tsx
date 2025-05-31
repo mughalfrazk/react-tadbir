@@ -4,7 +4,7 @@ import { Dispatch, SetStateAction } from 'react'
 import { TbPlaylistX } from 'react-icons/tb'
 
 import { Box, Paper, Stack, Typography } from '@/components/mui'
-import { TaskWithAssigneesListModel } from '@/lib/models/task.model'
+import { TaskWithAssigneeAndTagListModel } from '@/lib/models/task.model'
 
 import AddTaskForm from './AddTaskForm'
 import SortableItem from './SortableItem'
@@ -16,7 +16,7 @@ const Column = ({
   setAddTaskForm
 }: {
   id: string
-  tasks: TaskWithAssigneesListModel
+  tasks: TaskWithAssigneeAndTagListModel
   addTaskForm: string
   setAddTaskForm: Dispatch<SetStateAction<string>>
 }) => {

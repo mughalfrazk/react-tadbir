@@ -10,7 +10,7 @@ const Button = ({
   isIconOnly,
   ...otherProps
 }: { tooltip?: string; border?: boolean; isIconOnly?: boolean } & ButtonProps) => {
-  const py = otherProps.size === 'small' ? { py: 0.5 } : {}
+  const py = otherProps.size === 'small' ? { height: 30, py: 0 } : {}
   const style = { ...sx }
   if (isIconOnly) {
     const borderStyles = border ? { border: 1, borderColor: 'divider' } : {}

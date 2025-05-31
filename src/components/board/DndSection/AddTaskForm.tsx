@@ -35,7 +35,7 @@ const AddTaskForm = ({
       setValue('project_id', project_id as string)
       setValue('column_id', columnId as string)
       setAddTaskForm('')
-      updateTaskInColumn(columnId, { ...newTask, task_assignee: [] })
+      updateTaskInColumn(columnId, { ...newTask, task_assignee: [], task_tag: [] })
     }
   })
 

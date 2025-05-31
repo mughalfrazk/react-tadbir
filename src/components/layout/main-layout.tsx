@@ -17,8 +17,6 @@ import { styled, useTheme } from '@mui/material/styles'
 import { useState } from 'react'
 import { Outlet, useLocation } from 'react-router'
 
-import useColorMode from '@/hooks/color-mode'
-
 import Header from './Header'
 
 const drawerWidth = 240
@@ -85,12 +83,11 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 const MainLayout = () => {
   const theme = useTheme()
   const location = useLocation()
-  const { mode } = useColorMode()
   const [open, setOpen] = useState(false)
 
-  const handleDrawerOpen = () => {
-    setOpen(true)
-  }
+  // const handleDrawerOpen = () => {
+  //   setOpen(true)
+  // }
 
   const handleDrawerClose = () => {
     setOpen(false)
@@ -104,14 +101,13 @@ const MainLayout = () => {
         sx={{
           boxShadow: 'none',
           backgroundImage: location.pathname === '/' ? 'none' : '',
-          backgroundColor:
-            location.pathname === '/' ? 'transparent' : mode === 'dark' ? 'black' : 'white',
+          backgroundColor: location.pathname === '/' ? 'transparent' : 'black',
           borderBottom: location.pathname === '/' ? 0 : 1,
           borderColor: 'divider'
         }}
         open={open}
       >
-        <Header handleDrawerOpen={handleDrawerOpen} open={open} />
+        <Header />
       </AppBar>
       <Drawer
         sx={{

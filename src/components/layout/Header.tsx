@@ -1,5 +1,3 @@
-import MenuIcon from '@mui/icons-material/Menu'
-import IconButton from '@mui/material/IconButton'
 import Toolbar from '@mui/material/Toolbar'
 import Typography from '@mui/material/Typography'
 import { TbLogin2 } from 'react-icons/tb'
@@ -10,7 +8,7 @@ import { Button, Container, Stack } from '../mui'
 import AvatarMenu from './AvatarMenu'
 import CircularProgress from '../mui/CircularProgress'
 
-const Header = ({ handleDrawerOpen, open }: { handleDrawerOpen: () => void; open: boolean }) => {
+const Header = () => {
   const auth = useAuth()
 
   // const changeColorSchema = () => {
@@ -25,7 +23,7 @@ const Header = ({ handleDrawerOpen, open }: { handleDrawerOpen: () => void; open
     <Container>
       <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
         <Stack direction="row" alignItems="center">
-          {auth.session && (
+          {/* {auth.session && (
             <IconButton
               color="inherit"
               aria-label="open drawer"
@@ -40,7 +38,7 @@ const Header = ({ handleDrawerOpen, open }: { handleDrawerOpen: () => void; open
             >
               <MenuIcon />
             </IconButton>
-          )}
+          )} */}
           <Typography variant="h4">Tadbir</Typography>
         </Stack>
         <Stack direction="row" alignItems="center" gap={1}>

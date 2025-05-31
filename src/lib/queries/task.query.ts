@@ -1,7 +1,12 @@
 import { useMutation } from '@tanstack/react-query'
 
-import { CreateTaskPayloadModel, TaskModel } from '../models/task.model'
-import { createTaskApi, deleteTaskApi, switchTaskColumnApi } from '../services/task.service'
+import { CreateTaskPayloadModel, TaskModel, UpdateTaskPayloadModel } from '../models/task.model'
+import {
+  createTaskApi,
+  deleteTaskApi,
+  switchTaskColumnApi,
+  updateTaskApi
+} from '../services/task.service'
 
 // const useGetColumnListQuery = ({ project_id }: { project_id: string }) => {
 //   return useQuery({
@@ -14,9 +19,15 @@ import { createTaskApi, deleteTaskApi, switchTaskColumnApi } from '../services/t
 const useCreateTaskMutation = ({ onSuccess }: { onSuccess: (task: TaskModel) => void }) => {
   return useMutation({
     mutationFn: (payload: CreateTaskPayloadModel) => createTaskApi(payload),
-    onSuccess: (task) => {
-      onSuccess(task)
-    }
+    onSuccess
+  })
+}
+
+const useUpdateTaskMutation = ({ onSuccess }: { onSuccess: () => void }) => {
+  return useMutation({
+    mutationFn: ({ taskId, payload }: { taskId: string; payload: UpdateTaskPayloadModel }) =>
+      updateTaskApi(taskId, payload),
+    onSuccess
   })
 }
 
@@ -35,4 +46,9 @@ const useDeleteTaskMutation = ({ onSuccess }: { onSuccess: () => void }) => {
   })
 }
 
-export { useCreateTaskMutation, useSwtichTaskColumnMutation, useDeleteTaskMutation }
+export {
+  useCreateTaskMutation,
+  useUpdateTaskMutation,
+  useSwtichTaskColumnMutation,
+  useDeleteTaskMutation
+}
